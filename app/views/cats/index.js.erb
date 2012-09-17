@@ -1,7 +1,8 @@
 <% unless @cats.empty? %>
 $("#cats").prepend("<%=raw escape_javascript(render(@cats)) %>");
-var current_cats = parseInt($("#page h2").text().split(" ")[0],10);
+var current_cats = parseInt($("#page h3").text().split(" ")[0],10);
 var new_cats = <%= @cats.size %>
 current_cats += parseInt(new_cats, 10);
-$("#page h2").text(current_cats + "  more cats since you last viewed");
+$("#page h3").text(current_cats + "  more cats since you last viewed");
+$("#page-title").text(current_cats + " Cats - Real Time Updates");
 <% end %>
