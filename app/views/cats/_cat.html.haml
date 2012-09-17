@@ -1,8 +1,10 @@
-.cat{"data-time"=>"cat.created_at.to_i"}
-  %b= cat.name
-  %b posted on 
-  = cat.created_at.strftime('%b %d, %Y at %I:%M %p')
-  %b Age: 
-  = cat.age
-  %b Description: 
-  = cat.description
+.well
+  .cat{"data-time"=>"cat.created_at.to_i"}
+    %b= cat.name
+    %ul
+      %li 
+        %i="posted on #{cat.created_at.strftime('%b %d, %Y at %I:%M %p')}" 
+      %li 
+        %b="Age: #{cat.age}" 
+      %li 
+        %b="Description: #{cat.description}" 
