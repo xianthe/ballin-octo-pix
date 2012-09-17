@@ -5,16 +5,13 @@ class PagesController < ApplicationController
     @random_list.to_json
 
     @page = Page.first
-    # @cats = Cat.find()
-    #find cats that belong to this page
 
   end
   
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all
-    @cats = Cat.all
+    @page = Page.first #Only one page in DB for now
     
     respond_to do |format|
       format.html # index.html.erb
