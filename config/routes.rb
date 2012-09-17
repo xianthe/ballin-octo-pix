@@ -1,5 +1,12 @@
 Cats::Application.routes.draw do
+
+  match 'cats/random-number' => 'cats#random_number'
   resources :cats
+
+  match 'home' => 'pages#home'
+  resources :pages
+
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

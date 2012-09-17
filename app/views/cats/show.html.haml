@@ -1,0 +1,17 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @cat.name
+%p
+  %b Age:
+  = @cat.age
+%p
+  %b Description:
+  = @cat.description
+%p
+  %b Image:
+  = @cat.image
+= link_to 'Edit', edit_cat_path(@cat)
+|
+\#{link_to 'Back', cats_path}

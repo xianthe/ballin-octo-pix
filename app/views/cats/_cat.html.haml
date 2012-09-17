@@ -1,0 +1,8 @@
+.cat{"data-time"=>"cat.created_at.to_i"}
+  %b= cat.name
+  %b posted on 
+  = cat.created_at.strftime('%b %d, %Y at %I:%M %p')
+  %b Age: 
+  = cat.age
+  %b Description: 
+  = cat.description

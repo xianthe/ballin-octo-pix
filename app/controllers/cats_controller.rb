@@ -2,12 +2,8 @@ class CatsController < ApplicationController
   # GET /cats
   # GET /cats.json
   def index
-    @cats = Cat.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @cats }
-    end
+    #@cats = Cat.all
+    @cats = Cat.where("created_at > ?", Time.at(params[:after].to_i + 1))
   end
 
   # GET /cats/1
@@ -78,6 +74,20 @@ class CatsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to cats_url }
       format.json { head :no_content }
+    end
+  end
+
+  def random_number
+    @ran = (0..50).to_a.sort{ rand() - 0.5 }[0..5]
+  end
+
+  #require 'set'
+
+  def rand_n(n, max)
+    randoms = Set.new
+    loop do
+        randoms << rand(max)
+        return randoms.to_a if randoms.size >= n
     end
   end
 end

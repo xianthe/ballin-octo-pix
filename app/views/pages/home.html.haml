@@ -1,0 +1,40 @@
+!!!
+%html
+
+%head
+  %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+%title Arena NET Twitter Updates
+%body
+  %header
+    %h2 Twitter Real Time Updates
+    %p This is a sample demonstration  of how Twitter does real time polling of updates.
+    %h4 [X] Updates Since Last Refresh
+    %nav
+      %ul{:id => "real-time-list"}
+        %li{:id => "default-list-item"}
+          %i You have no items yet...
+%title Arena NET Twitter Updates
+%body
+  %header
+    %h2 Twitter Real Time Updates
+    %p This is a sample demonstration  of how Twitter does real time polling of updates.
+    %h4 [X] Updates Since Last Refresh
+    %nav
+
+  %section
+    %article
+      %header
+        %p
+          Posted on
+          %time{:datetime => "2012-09-11T18:31:24-5:00"} September 11th 2012
+          by
+          %a{:href => "#"} Valerie Thompson
+  %aside
+    %h5 About section
+    %p This is a test.
+
+/= javascript_include_tag "realtime.js"
+
+
+
+

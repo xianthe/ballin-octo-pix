@@ -1,0 +1,40 @@
+/%p#notice= notice
+
+#page
+  -unless @page.cats.empty?
+    %h2==#{pluralize(@page.cats.size, 'cat')} more since you last viewed
+    #cats
+      = render (@page.cats)
+
+= link_to 'Edit', edit_page_path(@page)
+\|
+= link_to 'Back', pages_path
+
+:javascript
+
+  $(function(){
+    // console.log("Parse JSON railsbridge: " + #{@random_list});
+    // var random_numbers = $.parseJSON('#{@random_list}');
+
+    //console.log("Javascript: " + random_numbers);
+
+
+
+    // if (($("#real-time-list").length > 0) && (random_numbers.length > 0)){
+    //   var list_item = "<li>Current list of numbers: " +  random_numbers + " </li>"
+    //   $('ul#real-time-list').append(list_item);
+    // }
+
+    // if ($("#default-list-item").length > 0){
+    //   $('li#default-list-item').remove();
+    // }
+
+    setTimeout(updateItems, 10000);
+
+  });
+
+  function updateItems(){
+    var after = $("#cats:last-child").attr("data-time");
+    $.getScript("/cats.js?after="+after);
+    setTimeout(updateItems, 10000);
+  }
