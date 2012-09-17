@@ -1,19 +1,84 @@
-%h1 Listing pages
+.container-fluid
+  .row-fluid
+    .span5
+      %header
+        %h2 Twitter Real Time Updates Example
+        %p This is a sample demonstration  of how Twitter does real time polling of updates.
+      #page
+        -unless @page.cats.empty?
+          %h3==#{pluralize(@page.cats.size, 'cat')} more since you last viewed
+          %a{:href=>"#", :onclick => "resetInterval()", :class => "btn"}Stop polling
+          %a{:href=>"#", :onclick => "resetInterval()", :class => "btn"}Start polling
+          %br
+          %br
+          #cats
+            = render (@page.cats)
+    .span7
+      %h4 Exercise
 
-%table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
+      .well
+        %p== If you haven't already checked out twitter's real-time search, try #{link_to "http://twitter.com/search?q=arenanet", "http://twitter.com/search?q=arenanet"}. If you leave the results on, you'll have real-time updates similar to facebook news feed updates. (i.e. 1,203 more tweets since you started searching will highlight just below the search bar and the total counter in the browser's title bar will update as well).
 
-  - @pages.each do |page|
-    %tr
-      %td= page.name
-      %td= link_to 'Show', page
-      %td= link_to 'Edit', edit_page_path(page)
-      %td= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' }
+        %p Create a page that updates the list on the left hand-side, with latest items inserted at the top and highlighted. There should also be text inserted above the currently selected image stating "X more images since you viewed" with the browser title bar updated.
 
-%br
+        %p You may use any server technology you'd like (Node.js, ASP.NET MVC, PHP, or perhaps even pulling from a 3rd party API such as Flickr, Photobucket); the server only needs to supply you with a randomly generated list of new names and image urls. Don't be concerned with beautiful graphics and UI design. The focal point of this exercise is to demonstrate your abilities in starting a maintainable javascript code base that can handle updates to multiple parts of the page (i.e. title bar, column list and body) and has clean HTML/CSS structure. You may choose any JavaScript framework of your choice.
 
-= link_to 'New Page', new_page_path
+
+
+= link_to 'Edit', edit_page_path(@page)
+\|
+= link_to 'Back', pages_path
+
+:javascript
+
+  var timeout = 5000;
+
+  $(function(){
+    // console.log("Parse JSON railsbridge: " + #{@random_list});
+    // var random_numbers = $.parseJSON('#{@random_list}');
+
+    //console.log("Javascript: " + random_numbers);
+
+
+
+    // if (($("#real-time-list").length > 0) && (random_numbers.length > 0)){
+    //   var list_item = "<li>Current list of numbers: " +  random_numbers + " </li>"
+    //   $('ul#real-time-list').append(list_item);
+    // }
+
+    // if ($("#default-list-item").length > 0){
+    //   $('li#default-list-item').remove();
+    // }
+
+    setTimeout(updateItems, timeout);
+
+  });
+
+  function resetInterval(){
+   if (timeout === 0)
+   {
+     console.log("WOOT! restarting!");
+     timeout = 5000;
+     setTimeout(updateItems, timeout);
+   }
+   else
+   {
+      console.log("Stopping for now.");
+      timeout = 0;
+   }
+  }
+
+  function updateItems(){
+    if ($(".cat").length > 0) {
+      var after = $("#cats:last-child").attr("data-time");
+    }
+    else{
+      var after = "0";
+    }
+
+    $.getScript("/cats.js?after="+after);
+    console.log("Timeout: " + timeout);
+    if (timeout !== 0){
+     setTimeout(updateItems, timeout);
+    }
+  }

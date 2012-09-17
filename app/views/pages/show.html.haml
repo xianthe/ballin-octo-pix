@@ -1,13 +1,27 @@
+.container-fluid
+  .row-fluid
+    .span5
+      %header
+        %h2 Twitter Real Time Updates Example
+        %p This is a sample demonstration  of how Twitter does real time polling of updates.
+      #page
+        -unless @page.cats.empty?
+          %h3==#{pluralize(@page.cats.size, 'cat')} more since you last viewed
+          %a{:href=>"#", :onclick => "resetInterval()", :class => "btn"}Stop polling
+          %a{:href=>"#", :onclick => "resetInterval()", :class => "btn"}Start polling
+          %br
+          %br
+          #cats
+            = render (@page.cats)
+    .span7
+      %h4 Exercise
 
-#page
-  -unless @page.cats.empty?
-    %h2==#{pluralize(@page.cats.size, 'cat')} more since you last viewed
-    %a{:href=>"#", :onclick => "resetInterval()", :class => "btn"}Stop polling
-    %a{:href=>"#", :onclick => "resetInterval()", :class => "btn"}Start polling
-    %br
-    %br
-    #cats
-      = render (@page.cats)
+      .well
+        %p== If you haven't already checked out twitter's real-time search, try #{link_to "http://twitter.com/search?q=arenanet", "http://twitter.com/search?q=arenanet"}. If you leave the results on, you'll have real-time updates similar to facebook news feed updates. (i.e. 1,203 more tweets since you started searching will highlight just below the search bar and the total counter in the browser's title bar will update as well).
+
+        %p Create a page that updates the list on the left hand-side, with latest items inserted at the top and highlighted. There should also be text inserted above the currently selected image stating "X more images since you viewed" with the browser title bar updated.
+
+        %p You may use any server technology you'd like (Node.js, ASP.NET MVC, PHP, or perhaps even pulling from a 3rd party API such as Flickr, Photobucket); the server only needs to supply you with a randomly generated list of new names and image urls. Don't be concerned with beautiful graphics and UI design. The focal point of this exercise is to demonstrate your abilities in starting a maintainable javascript code base that can handle updates to multiple parts of the page (i.e. title bar, column list and body) and has clean HTML/CSS structure. You may choose any JavaScript framework of your choice.
 
 
 
