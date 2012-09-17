@@ -1,10 +1,11 @@
 !!!
 %html
 %head
-  %title Cats
+  %title{:id => "page-title"} XXX Cats - Real Time Updates
   = stylesheet_link_tag "application", :media => "all"
   = javascript_include_tag "application"
   = csrf_meta_tags 
+  %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
   %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
 
 :plain
@@ -15,29 +16,17 @@
 
 %body
 .container
-  .navbar.navbar-fixed-top.navbar-inverse
+  .navbar.navbar-fixed-top
     .navbar-inner
       %a{:href => "#", :class => "brand"}
         Cats
       %ul.nav
-        %li= link_to "Home Page"
-        %li= link_to "Link to List of Cats"
+        %li= link_to "Home Page", root_path
         %li= link_to "Picture Gallery"
-
-    .container-fluid
-      .row-fluid
-        .span5
-          = yield
-        .span7
-          %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam iaculis, mauris ac sollicitudin commodo, nisl eros sagittis nisl, sed adipiscing leo lacus eget sapien. Vestibulum et quam id urna porta lacinia. Etiam fringilla libero in lectus sollicitudin feugiat nec sed nisi. Suspendisse potenti. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum malesuada imperdiet dui, vel iaculis lorem pretium id. Maecenas ultricies, augue vitae malesuada ullamcorper, dui felis porttitor velit, et semper libero arcu sit amet elit. Maecenas urna mauris, pellentesque nec elementum non, auctor sit amet ante. Quisque non mi non est varius fermentum. Etiam ipsum massa, condimentum sit amet interdum sit amet, molestie sed magna. In sed ipsum nulla, imperdiet porta lorem. Sed sapien dui, accumsan in pretium sed, laoreet eget sem. Praesent non luctus libero. Integer nec magna metus. Pellentesque pulvinar auctor euismod.
-
-          %p In hac habitasse platea dictumst. Suspendisse potenti. Vestibulum non arcu mi. Sed vel nisl sed erat ullamcorper tincidunt. Donec eu mi orci. Aliquam erat volutpat. Nullam mauris libero, auctor nec adipiscing ut, euismod sit amet dolor. Vestibulum sed odio dictum massa hendrerit rhoncus vitae vitae nunc. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-
-          %p Nam ullamcorper, mi ac mollis ullamcorper, massa erat eleifend mauris, ac bibendum nulla felis ac turpis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque vulputate congue tristique. Etiam enim lectus, lacinia id facilisis luctus, tincidunt ac libero. Aenean in ipsum eget mauris vulputate consequat. Nullam id neque vitae nisl ultricies commodo. Maecenas velit urna, vehicula mattis porta pellentesque, scelerisque sed leo. Aenean quam augue, mollis quis semper vitae, auctor in dui. Donec bibendum urna vel leo porttitor nec pulvinar dolor fringilla. Ut sed auctor nulla. Etiam aliquet, tortor id ultricies vulputate, mi nisi pretium nunc, ut accumsan magna arcu sed quam. Donec sagittis ultricies nunc sed egestas. Aliquam faucibus dignissim luctus. Morbi interdum urna non orci ullamcorper et hendrerit libero sollicitudin. Praesent cursus hendrerit magna nec eleifend.
-
-          %p Duis tincidunt erat eget nulla tincidunt porttitor. In euismod placerat sapien in consectetur. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque id erat eget lectus placerat porta quis sit amet felis. Ut consectetur aliquet ante, eu tempus purus aliquam ac. Morbi molestie imperdiet quam sed congue. Aliquam euismod, nisl sed commodo sodales, erat libero lobortis metus, vel ornare orci diam sed sem. Donec a nulla ante. Aenean vitae turpis sed nisl posuere volutpat. Sed faucibus, sapien vitae ultrices dictum, turpis arcu sollicitudin sapien, ut fringilla odio leo sit amet metus. Suspendisse malesuada porta sem at egestas.
-
-          %p Vestibulum facilisis, orci sit amet semper condimentum, elit risus facilisis nisl, non aliquam nisi lectus tincidunt mi. Praesent sit amet lacus a erat accumsan pellentesque vitae quis orci. Donec ut nulla lorem, eu rutrum urna. Vivamus at facilisis velit. Donec dolor lectus, scelerisque a eleifend ut, fermentum sit amet elit. Integer feugiat suscipit ultrices. Fusce eget tortor in eros pretium tristique in ac mi. Vivamus pharetra rutrum mauris, quis volutpat quam facilisis rutrum. Nunc consectetur volutpat erat, sed pretium quam dapibus id. Curabitur sed tortor nec mi sagittis pharetra eget ac ligula. Quisque fringilla aliquet felis, cursus viverra nulla eleifend scelerisque. Donec eu elit non nisl euismod suscipit. Nullam in mi dui.
-
-
-
+.main-content
+  = yield
+.container
+  .navbar.navbar-fixed-bottom
+    .navbar-inner
+      %ul.nav
+        %li= link_to "Link to List of Cats", cats_path
