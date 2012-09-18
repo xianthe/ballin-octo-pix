@@ -3,8 +3,8 @@
     .span5
       %header
         %h2 Twitter Real Time Updates Example
-        %p This is a sample demonstration  of how Twitter does real time polling of updates.
-      #page
+        %p This is a sample demonstration  of how Twitter does real time polling of updates. Let as many cats as you want pile up and click "Open New Items" to see them. The "Stop Polling" button will change to a "Start Polling" button so you can get more cats from the server. 
+
         -unless @page.cats.empty?
           .alert.alert-info
             %h3==#{pluralize(@page.cats.size, 'cat')} more since you last viewed!
@@ -40,17 +40,27 @@
 
       .well
         %h3 Valerie's Description
-        %p== My version of the exercise randomly pulls objects from the Ruby on Rails database in this case, cat objects. It can be expanded on with thumbnails and styling and whatnot. You can add more cats by going to #{link_to "the cats list", cats_path}, and entering more cats if you would like to try the serverside application. It is a traditional Ruby on Rails CRUD (create, read, update, delete) application and all of it is functional. 
+        %p== My version of the exercise randomly pulls objects from the Ruby on Rails database in this case, cat objects. It can be expanded on with thumbnails and styling and whatnot. You can add more cats by going to #{link_to "the cats list", cats_path}, and entering more cats if you would like to try the serverside application. It is a traditional Ruby on Rails CRUD (create, read, update, delete) application and all of it is functional.
 
 
         %h3 Additions and Explanations
-        %p Things I would do differently, if more people were using the applicaiton I would put more limits on the setTimeout functionality so they don't overwhelm the server. You can throttle it, or if you need more performance you can open a socket directly to the user. In this case, I went with polling the server instead. The home page is for the main page of the application. The cats repeat frequently because of the sample size. Using something like Flick API to post from is something
-        I will look at doing in the future as an upgrade. Currently you can mananually enter as many cats as you want to though.
+        %p Things I would do differently, if more people were using the applicaiton I would put more limits on the setTimeout functionality so they don't overwhelm the server. You can throttle it, or if you need more performance you can open a socket directly to the user. In this case, I went with polling the server instead. The home page is for the main page of the application. The cats repeat frequently because of the sample size. Using something like Flick API to post from is something I will look at doing in the future as an upgrade. Currently you can manually enter as many cats as you want to though.
 
         %h3 Other items
-        %p The application needs internal tests, better styles, design and custom 404 pages. I also need to lock down application paths to the only endpoints I want users to have access to.
+        %p The application needs internal tests, better styles, design and custom 404 pages. I also need to lock down application paths to the only endpoints I want users to have access to. Cross browser testing is soemthing that is needed as well, 
+        though Twitter bootstrap does give me a bit of protection from that.
 
         %p== All source code is on #{link_to "github", "https://gitub.com/xianthe/ballin-octo-pix"}
+
+        %h3 Tech Used
+        %ul
+          %li HTML5 
+          %li CSS3
+          %li Ruby on Rails 3.2
+          %li jQuery
+          %li Twitter Bootstrap
+          %li Databases are sqlite3 in development and postgres in production
+          %li Heroku for server hosting
 
 :javascript
 
