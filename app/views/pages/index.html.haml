@@ -11,8 +11,15 @@
           %a{:href=>"#", :onclick => "resetInterval()", :class => "btn"}Start polling
           %br
           %br
-          #cats
+          .btn-group
+            %a{:href=>"#", :onclick => "revealNewItems()", :class => "btn btn-primary dropdown-toggle", "data-toggle" => "dropdown"}
+              Open New Items
+            %a{:href=>"#", :onclick => "revealNewItems()", :class => "btn btn-primary dropdown-toggle", "data-toggle" => "dropdown"}
+              %span
+                %i{:class => "icon-plus icon-white"}
+          .cats.well.hidden
             = render (@page.cats)
+
     .span7
       %h4 Exercise
 
@@ -23,36 +30,21 @@
 
         %p You may use any server technology you'd like (Node.js, ASP.NET MVC, PHP, or perhaps even pulling from a 3rd party API such as Flickr, Photobucket); the server only needs to supply you with a randomly generated list of new names and image urls. Don't be concerned with beautiful graphics and UI design. The focal point of this exercise is to demonstrate your abilities in starting a maintainable javascript code base that can handle updates to multiple parts of the page (i.e. title bar, column list and body) and has clean HTML/CSS structure. You may choose any JavaScript framework of your choice.
 
-
-
-= link_to 'Edit', edit_page_path(@page)
-\|
-= link_to 'Back', pages_path
-
 :javascript
 
   var timeout = 5000;
 
   $(function(){
-    // console.log("Parse JSON railsbridge: " + #{@random_list});
-    // var random_numbers = $.parseJSON('#{@random_list}');
-
-    //console.log("Javascript: " + random_numbers);
-
-
-
-    // if (($("#real-time-list").length > 0) && (random_numbers.length > 0)){
-    //   var list_item = "<li>Current list of numbers: " +  random_numbers + " </li>"
-    //   $('ul#real-time-list').append(list_item);
-    // }
-
-    // if ($("#default-list-item").length > 0){
-    //   $('li#default-list-item').remove();
-    // }
 
     setTimeout(updateItems, timeout);
 
   });
+
+  function revealNewItems(){
+    $('.hidden').show();
+    $('.cats').removeClass("hidden");
+    $('.accordion').removeClass("hidden");
+  }
 
   function resetInterval(){
    if (timeout === 0)
@@ -69,16 +61,15 @@
   }
 
   function updateItems(){
-    if ($(".cat").length > 0) {
-      var after = $("#cats:last-child").attr("data-time");
-    }
-    else{
-      var after = "0";
-    }
 
-    $.getScript("/cats.js?after="+after);
+
+    $.getScript("/cats.js");
     console.log("Timeout: " + timeout);
+    var current_cats_count = parseInt($("#page h3").text().split(" ")[0],10);
+
     if (timeout !== 0){
      setTimeout(updateItems, timeout);
+
+     //ask to continue if > 2000, 4000, etc
     }
   }
