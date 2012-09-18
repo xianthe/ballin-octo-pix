@@ -3,7 +3,7 @@ class CatsController < ApplicationController
   # GET /cats.json
   def index
     if request.xhr?
-      sample_size = rand(1..5)
+      sample_size = (1..5).to_a.sample
       @cats = Cat.find(:all).sample(sample_size)
     else
       @cats = Cat.all
