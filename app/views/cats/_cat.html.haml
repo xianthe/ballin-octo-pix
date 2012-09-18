@@ -1,10 +1,14 @@
-.well
-  .cat{"data-time"=>"cat.created_at.to_i"}
-    %b= cat.name
-    %ul
-      %li 
-        %i="posted on #{cat.created_at.strftime('%b %d, %Y at %I:%M %p')}" 
-      %li 
-        %b="Age: #{cat.age}" 
-      %li 
-        %b="Description: #{cat.description}" 
+.accordion.hidden{:id => "accordion_#{Time.now.to_i}_#{cat_counter}"}
+  .accordion-group
+    .accordion-heading.cat{"data-time"=>"#{cat.created_at.to_i}"}
+      %a{:href => "#collapse_#{Time.now.to_i}_#{cat_counter}", :class => "accordion-toggle", "data-toggle" => "collapse", "data-parent" => "#accordion_#{Time.now.to_i}_#{cat_counter}"}
+        #{cat.name}
+    .accordion-body.collapse{:id => "collapse_#{Time.now.to_i}_#{cat_counter}"}
+      .accordion-inner
+        %ul
+          %li 
+            %i="posted on #{cat.created_at.strftime('%b %d, %Y at %I:%M %p')}" 
+          %li 
+            %b="Age: #{cat.age}" 
+          %li 
+            %b="Description: #{cat.description}" 
