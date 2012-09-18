@@ -20,7 +20,8 @@
           %br
           %br
           .cats.well.hidden.clearfix
-            = render (@page.cats)
+            .items{:class => "new-items"}
+              = render (@page.cats)
 
     .span7
       %h4 Exercise
@@ -32,12 +33,21 @@
 
         %p You may use any server technology you'd like (Node.js, ASP.NET MVC, PHP, or perhaps even pulling from a 3rd party API such as Flickr, Photobucket); the server only needs to supply you with a randomly generated list of new names and image urls. Don't be concerned with beautiful graphics and UI design. The focal point of this exercise is to demonstrate your abilities in starting a maintainable javascript code base that can handle updates to multiple parts of the page (i.e. title bar, column list and body) and has clean HTML/CSS structure. You may choose any JavaScript framework of your choice.
 
+      .well
+        %p== My version of the exercise randomly pulls objects from the Ruby on Rails database in this case, cat objects. It can be expanded on with thumbnails and styling and whatnot. You can add more cats by going to #{link_to "the cats list", cats_path}, and entering more cats if you would like to try the serverside application. It is a traditional Ruby on Rails CRUD (create, read, update, delete) application and all of it is functional.
+
+        %p Things I would do differently, if more people were using the applicaiton I would put more limits on the setTimeout functionality so they don't overwhelm the server. You can throttle it, or if you need more performance you can open a socket directly to the user. In this case, I went with polling the server instead. The home page is for the main page of the application.
+
+        %p== All source code is on #{link_to "github", "https://gitub.com/xianthe/ballin-octo-pix"}
+
 :javascript
 
+  //Initial timeout is 5s, can throttle this dynamically.
   var timeout = 5000;
 
   $(function(){
 
+    //Make an initial request to the server
     setTimeout(updateItems, timeout);
 
   });
@@ -48,18 +58,21 @@
 
     //Remove the hidden class so items show up, and tag them all as new items;
     //remove new item tag from all old new items
-    $('.accordion').removeClass("new-items"); 
-    $('.cats').removeClass("hidden").addClass("new-items");
-    $('.accordion').removeClass("hidden").addClass("new-items");
+    //$('.accordion').removeClass("new-items"); 
+    $('.cats').removeClass("hidden");
+    $('.accordion').removeClass("hidden");
 
     //Highlight the new items briefly
     $(".new-items").effect("highlight", {color: "#ffc8ba"}, 3000);
+    $('.items').removeClass("new-items");
+
     $("#page h3").text("0 cats since you last viewed!");
   }
 
   function resetInterval(){
    if (timeout === 0)
    {
+     //Alows the user to start the polling again
      timeout = 5000;
      $("#polling").text("Stop Polling");
      setTimeout(updateItems, timeout);
@@ -67,15 +80,19 @@
    }
    else
    {
+      //Allows the user to stop the polling
       timeout = 0;
       $("#polling").text("Start Polling");
    }
   }
 
   function updateItems(){
+
+    //Make an AJAX call to the rails server to get some data.
     $.getScript("/cats.js");
     var current_cats_count = parseInt($("#page h3").text().split(" ")[0],10);
 
+    //If timeout is enabled, continue requesting data from the server.
     if (timeout !== 0){
      setTimeout(updateItems, timeout);
     }
