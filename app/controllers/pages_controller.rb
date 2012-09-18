@@ -1,13 +1,5 @@
 class PagesController < ApplicationController
 
-  def home
-    @random_list = [6, 11, 30, 12, 21, 28]
-    @random_list.to_json
-
-    @page = Page.first
-
-  end
-  
   # GET /pages
   # GET /pages.json
   def index

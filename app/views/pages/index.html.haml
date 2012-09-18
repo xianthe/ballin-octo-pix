@@ -33,10 +33,22 @@
 
         %p You may use any server technology you'd like (Node.js, ASP.NET MVC, PHP, or perhaps even pulling from a 3rd party API such as Flickr, Photobucket); the server only needs to supply you with a randomly generated list of new names and image urls. Don't be concerned with beautiful graphics and UI design. The focal point of this exercise is to demonstrate your abilities in starting a maintainable javascript code base that can handle updates to multiple parts of the page (i.e. title bar, column list and body) and has clean HTML/CSS structure. You may choose any JavaScript framework of your choice.
 
-      .well
-        %p== My version of the exercise randomly pulls objects from the Ruby on Rails database in this case, cat objects. It can be expanded on with thumbnails and styling and whatnot. You can add more cats by going to #{link_to "the cats list", cats_path}, and entering more cats if you would like to try the serverside application. It is a traditional Ruby on Rails CRUD (create, read, update, delete) application and all of it is functional.
+      .alert.alert-success
+        %h2 Live Demo Site on Heroku
+        %p= link_to "http://shielded-bayou-9558.herokuapp.com/", "http://shielded-bayou-9558.herokuapp.com/"
 
-        %p Things I would do differently, if more people were using the applicaiton I would put more limits on the setTimeout functionality so they don't overwhelm the server. You can throttle it, or if you need more performance you can open a socket directly to the user. In this case, I went with polling the server instead. The home page is for the main page of the application.
+
+      .well
+        %h3 Valerie's Description
+        %p== My version of the exercise randomly pulls objects from the Ruby on Rails database in this case, cat objects. It can be expanded on with thumbnails and styling and whatnot. You can add more cats by going to #{link_to "the cats list", cats_path}, and entering more cats if you would like to try the serverside application. It is a traditional Ruby on Rails CRUD (create, read, update, delete) application and all of it is functional. 
+
+
+        %h3 Additions and Explanations
+        %p Things I would do differently, if more people were using the applicaiton I would put more limits on the setTimeout functionality so they don't overwhelm the server. You can throttle it, or if you need more performance you can open a socket directly to the user. In this case, I went with polling the server instead. The home page is for the main page of the application. The cats repeat frequently because of the sample size. Using something like Flick API to post from is something
+        I will look at doing in the future as an upgrade. Currently you can mananually enter as many cats as you want to though.
+
+        %h3 Other items
+        %p The application needs internal tests, better styles, design and custom 404 pages. I also need to lock down application paths to the only endpoints I want users to have access to.
 
         %p== All source code is on #{link_to "github", "https://gitub.com/xianthe/ballin-octo-pix"}
 

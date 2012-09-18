@@ -82,18 +82,4 @@ class CatsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  def random_number
-    @ran = (0..50).to_a.sort{ rand() - 0.5 }[0..5]
-  end
-
-  #require 'set'
-
-  def rand_n(n, max)
-    randoms = Set.new
-    loop do
-        randoms << rand(max)
-        return randoms.to_a if randoms.size >= n
-    end
-  end
 end
