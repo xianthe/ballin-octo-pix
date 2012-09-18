@@ -2,8 +2,8 @@ class CatsController < ApplicationController
   # GET /cats
   # GET /cats.json
   def index
-    #@cats = Cat.all
-    @cats = Cat.where("created_at > ?", Time.at(params[:after].to_i + 1))
+    sample_size = rand(1..5)
+    @cats = Cat.find(:all).sample(sample_size)
   end
 
   # GET /cats/1
