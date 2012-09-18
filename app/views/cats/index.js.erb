@@ -1,5 +1,6 @@
 <% unless @cats.empty? %>
-$("#cats").prepend("<%=raw escape_javascript(render(@cats)) %>");
+var temporal_id = <%= Time.now.to_i %>
+$(".cats").prepend("<div id='" + temporal_id + "'><%=raw escape_javascript(render(@cats)) %></div>");
 var current_cats = parseInt($("#page h3").text().split(" ")[0],10);
 var new_cats = <%= @cats.size %>
 current_cats += parseInt(new_cats, 10);
