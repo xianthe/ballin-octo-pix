@@ -6,18 +6,20 @@
         %p This is a sample demonstration  of how Twitter does real time polling of updates.
       #page
         -unless @page.cats.empty?
-          %h3==#{pluralize(@page.cats.size, 'cat')} more since you last viewed
-          %a{:href=>"#", :onclick => "resetInterval()", :class => "btn"}Stop polling
-          %a{:href=>"#", :onclick => "resetInterval()", :class => "btn"}Start polling
-          %br
-          %br
-          .btn-group
-            %a{:href=>"#", :onclick => "revealNewItems()", :class => "btn btn-primary dropdown-toggle", "data-toggle" => "dropdown"}
+          .alert.alert-info
+            %h3==#{pluralize(@page.cats.size, 'cat')} more since you last viewed!
+          %h5==#{pluralize(@page.cats.size, 'cat')} total!
+          %a{:href=>"#", :onclick => "resetInterval()", :class => "btn dropdown-toggle pull-left", :id => "polling", "data-toggle"=>"dropdown"}
+            Stop Polling
+          .btn-group.pull-right
+            %a{:href=>"#", :onclick => "revealNewItems()", :class => "btn btn-primary"}
               Open New Items
-            %a{:href=>"#", :onclick => "revealNewItems()", :class => "btn btn-primary dropdown-toggle", "data-toggle" => "dropdown"}
+            %a{:href=>"#", :onclick => "revealNewItems()", :class => "btn btn-primary"}
               %span
                 %i{:class => "icon-plus icon-white"}
-          .cats.well.hidden
+          %br
+          %br
+          .cats.well.hidden.clearfix
             = render (@page.cats)
 
     .span7
@@ -41,35 +43,40 @@
   });
 
   function revealNewItems(){
+    //Reveal all hidden items
     $('.hidden').show();
-    $('.cats').removeClass("hidden");
-    $('.accordion').removeClass("hidden");
+
+    //Remove the hidden class so items show up, and tag them all as new items;
+    //remove new item tag from all old new items
+    $('.accordion').removeClass("new-items"); 
+    $('.cats').removeClass("hidden").addClass("new-items");
+    $('.accordion').removeClass("hidden").addClass("new-items");
+
+    //Highlight the new items briefly
+    $(".new-items").effect("highlight", {color: "#ffc8ba"}, 3000);
+    $("#page h3").text("0 cats since you last viewed!");
   }
 
   function resetInterval(){
    if (timeout === 0)
    {
-     console.log("WOOT! restarting!");
      timeout = 5000;
+     $("#polling").text("Stop Polling");
      setTimeout(updateItems, timeout);
+
    }
    else
    {
-      console.log("Stopping for now.");
       timeout = 0;
+      $("#polling").text("Start Polling");
    }
   }
 
   function updateItems(){
-
-
     $.getScript("/cats.js");
-    console.log("Timeout: " + timeout);
     var current_cats_count = parseInt($("#page h3").text().split(" ")[0],10);
 
     if (timeout !== 0){
      setTimeout(updateItems, timeout);
-
-     //ask to continue if > 2000, 4000, etc
     }
   }

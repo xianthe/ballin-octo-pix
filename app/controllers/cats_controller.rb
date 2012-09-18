@@ -2,8 +2,12 @@ class CatsController < ApplicationController
   # GET /cats
   # GET /cats.json
   def index
-    sample_size = rand(1..5)
-    @cats = Cat.find(:all).sample(sample_size)
+    if request.xhr?
+      sample_size = rand(1..5)
+      @cats = Cat.find(:all).sample(sample_size)
+    else
+      @cats = Cat.all
+    end
   end
 
   # GET /cats/1
@@ -37,6 +41,8 @@ class CatsController < ApplicationController
   # POST /cats.json
   def create
     @cat = Cat.new(params[:cat])
+
+    @cat.page_id = 1 # hard code this for now
 
     respond_to do |format|
       if @cat.save
