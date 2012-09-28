@@ -5,10 +5,11 @@
         %h2 Twitter Real Time Updates Example
         %p This is a sample demonstration  of how Twitter does real time polling of updates. Let as many cats as you want pile up and click "Open New Items" to see them. The "Stop Polling" button will change to a "Start Polling" button so you can get more cats from the server. 
 
-        -unless @page.cats.empty?
-          .alert.alert-info
-            %h3==#{pluralize(@page.cats.size, 'cat')} more since you last viewed!
-          %h5==#{pluralize(@page.cats.size, 'cat')} total!
+        #page
+          -unless @page.cats.empty?
+            .alert.alert-info
+              %h3==#{pluralize(@page.cats.size, 'cat')} more since you last viewed!
+            %h5==#{pluralize(@page.cats.size, 'cat')} total!
           %a{:href=>"#", :onclick => "resetInterval()", :class => "btn dropdown-toggle pull-left", :id => "polling", "data-toggle"=>"dropdown"}
             Stop Polling
           .btn-group.pull-right
